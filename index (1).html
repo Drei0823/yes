@@ -1,0 +1,52 @@
+<script>
+  const correctAnswers = {
+    1: {
+      type: "Rational Equation",
+      question: "1/(x+1) = 2. What is x?",
+      answers: ["-0.5", "-1/2"]
+    },
+    2: {
+      type: "Inequality",
+      question: "2x - 3 > 5. What is the solution?",
+      answers: ["x > 4"]
+    },
+    3: {
+      type: "Function",
+      question: "f(x) = x² + 1. Find f(3)",
+      answers: ["10"]
+    }
+  };
+
+  let currentCard = null;
+
+  function loadQuestion() {
+    const card = parseInt(document.getElementById("cardNumber").value);
+    const data = correctAnswers[card];
+
+    if (!data) {
+      document.getElementById("question").innerText = "Card not found.";
+      currentCard = null;
+      return;
+    }
+
+    document.getElementById("question").innerText = `${data.type}: ${data.question}`;
+    document.getElementById("result").innerText = "";
+    currentCard = card;
+  }
+
+  function checkAnswer() {
+    if (!currentCard) {
+      document.getElementById("result").innerText = "Please load a question first.";
+      return;
+    }
+
+    const playerAnswer = document.getElementById("playerAnswer").value.trim().toLowerCase();
+    const correctList = correctAnswers[currentCard].answers.map(ans => ans.trim().toLowerCase());
+
+    if (correctList.includes(playerAnswer)) {
+      document.getElementById("result").innerText = "✅ Correct!";
+    } else {
+      document.getElementById("result").innerText = "❌ Wrong.";
+    }
+  }
+</script>
